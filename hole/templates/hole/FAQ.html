@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>О2 Главная страница</title>
+    {% load staticfiles %}
+    <link rel="icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <style>
+        body {
+            background-color: #DDDDDD;
+            background-image: url("/static/image/back.png");
+            background-position: 50% 200px;
+            background-repeat: no-repeat;}
+        hr {
+            height: 2px;
+            width: 300px;           }
+
+    </style>
+</head>
+<body>
+    {% include "hole/wrapper_faq.html" %}
+    {% block content %}
+    {% endblock %}
+
+<p align="center">Справка</p>
+<div class="container">
+    <p>Описание программного продукта и указания для использования</p>
+    <p>Блины с мясом. Совершенно бомбическая штука. Тонкий, мягкий блин, внутри мясное мясо.
+        (да, знаю, что тавтология, но по-другому тут никак). Сами по себе такие блины с мясом – вещь не новая.
+        Я делал их в разных вариациях уже не раз. (и конверты, и мешочки и трубочки). И это вкусно.
+        А еще удобно делать впрок и разогревать утром, удобно брать на работу и даже замораживать.
+        А вот с яйцом, на манер Аджарских хачапури, я еще не пробовал. А это вкусно. При разрезании пополам,
+        желток вытекает и вся эта красота смешивается с мясом. Чистой воды гастропорно, дамы и господа.
+        А еще потом подключился тот пармезан, что я тер и лук зеленый. Ну вы поняли).</p>
+{#    <br>#}
+{#    <br>#}
+{#    <br>#}
+{#    <br>#}
+{#    <br>#}
+{#    <br>#}
+{#    <br>#}
+{#    <br>#}
+{#    <br>#}
+{#    <br>#}
+
+</div>
+</body>
+</html>

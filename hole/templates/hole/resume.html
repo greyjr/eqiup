@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>О2 Графически обзор</title>
+    {% load staticfiles %}
+    <link rel="icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <style>
+        body {
+			color: #404040;
+			background: #DDDDDD;}
+        hr{
+            height: 2px;
+            width: 300px;}
+        table{
+            width: 90%;
+
+        }
+        td{
+            border-right: #383f45 1px solid;
+            border-left: #383f45 1px solid;
+            border-top: #DDDDDD 1px solid;
+            width: 25px;
+            height: 20px;
+        }
+
+    </style>
+</head>
+<body>
+{% include "hole/wrapper.html" %}
+
+<div class="container">
+    <h1>обзор по времени</h1>
+    <table>
+    {% for row in tk_ck_1 %}
+        <tr>
+        {% for cell in time %}
+            <td style="background: #9BC2E6; border-bottom: #1d2124" title="{{ cell }} {{ row }}"></td>
+
+
+
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+</body>
+</html>

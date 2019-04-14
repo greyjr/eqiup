@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>O2 Инструкции</title>
+    {% load staticfiles %}
+    <link rel="icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <style>
+        body {
+            background: #DDDDDD;}
+        hr{
+            height: 2px;
+            width: 300px;}
+        td.head{
+            width: 80px;
+            border: #565656;
+            background: #b1b1b1;
+            border-top-left-radius: 11px;
+            text-align: center;
+        }
+
+        .k1500text{
+            background: #0c5460;
+            opacity: .4;
+        }
+
+        .k1500:hover ~ .k1500text{
+            opacity: 1;
+            background: #b21f2d;
+        }
+
+
+    </style>
+</head>
+
+<body>
+{% include "hole/wrapper_faq.html" %}
+
+<p align="center" class="text-muted">инструкции по эксплуатации</p>
+{% for i in ie_all %}
+
+    <p align="left" style="text-indent: 60px">{{ i.name_ie}}&nbsp;&nbsp; <a href= "#"> {{i.content_ie }}</a> </p>
+
+{% endfor %}
+
+<div align="center" class="container">
+<table style="border-collapse: separate; border-spacing: 10px">
+    <tr>
+        <td class="head k500">K-500</td>
+        <td class="head k1500">K-1500</td>
+        <td class="head bl2">Блок 2</td>
+        <td class="head bl6">Блок 6</td>
+        <td class="head bl7">Блок 7</td>
+        <td class="head bl8">Блок 8</td>
+        <td class="head ktk">КТК-12,5</td>
+        <td class="head tg">ТГ-200</td>
+        <td class="head atk">АТК</td>
+    </tr>
+</table>
+</div>
+
+<div class="k1500text">
+<table>
+    <tr>
+        <td>
+            3. 25 февраля 1991 года установка ПВО Patriot не смогла перехватить ракету, пущенную со стороны сил Саддама Хусейна. Ракета попала в барак солдат США, что привело к 28 смертям. Расследование показало, что 24–битные процессоры перехватчика при переводе времени совершают ошибку в 0.013 секунды каждый час. Patriot не перезагружали более 100 часов, что привело к ошибкам вычисления положения ракеты на 600 метров. Вот уж где перезагрузка спасла бы жизни.
+4. В 1992 году ошибки системы распределения маршрутов в Лондонской скорой помощи привели к смерти 30–45 человек (разброс большой, потому что не ясно, смогла бы скорая спасти того или иного человека). Все произошло, когда в Лондоне решили заменить людей операторов на компьютерную систему.
+В результате система была введена в эксплуатацию без нагрузочного тестирования и с 81! известным багом. Добавьте к этому еще и то, что интегратор решил сэкономить и купил дешевое оборудование, которое сломалось через пару часов после активного пользования системой. Хаос был настолько безумным, что бывали случаи, когда человек, не дождавшись скорой, умирал, его увозили в морг, и только тогда приезжала скорая.
+        </td>
+    </tr>
+</table>
+</div>
+
+
+
+</body>
+</html>

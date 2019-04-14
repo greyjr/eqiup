@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>О2 показатели работы</title>
+    {% load staticfiles %}
+    <link rel="icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <style>
+        body {
+            background: #DDDDDD;}
+        textarea{
+            font-size: 13px;
+            resize: none;}
+        select.slc1, select.slc2, select.slc3 {
+            width: 230px;}
+        label{
+            color: #002752;
+            font-weight: 600}
+        select option {
+            margin: 40px;
+            background: rgba(248, 248, 248, 0.8);
+            color: #002752;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);}
+        select{
+            background: #f8f8f8;        }
+         hr{
+            height: 2px;
+            width: 300px;}
+    </style>
+</head>
+<body>
+{% include "hole/wrapper.html" %}
+
+
+<div class="container" align="center">
+    <form method="POST" action="/analysis_unit/">
+        {% csrf_token %}
+
+
+        <table align = "center">
+            <tr align="center">
+                <th><label for="slc1">Введите участок</label></th>
+                <th><label for="slc2">Введите оборудование</label></th>
+            </tr>
+            <tr>
+                <td><select class="slc1" name="area" id="slc1" onchange="_1select();"></select></td>
+                <td><select class="slc2" name="short_name" id="slc2"></select></td>
+            </tr>
+        </table>
+        <hr>
+
+        <script type="text/javascript">
+
+            var slc1 = document.getElementById("slc1");
+            var slc2 = document.getElementById("slc2");
+
+            var dataObj = {	"Разделение воздуха":       { "equip": ["АКАр № 2", "КАр-30 № 6", "КАр-30М1 № 7", "КАр-30 № 8"]},
+                        "Компрессия воздуха":		    { "equip": ["ТК № 1", "ТК № 2", "ТК № 3", "ТК № 4", "ТК № 5", "ТК № 6", "ТК № 7", "ТК № 8", "ТК № 9", "ТК № 10", "ТК № 11", "ТК № 12", "ТК № 13", "ТК № 14", "ТК № 15", "ТК № 16", "ТК № 18", "ТК № 19", "ТК № 20", "ТК № 21", "ТК № 22", "ТК № 23", "ТК № 24", "ТК № 25"]},
+                        "Компрессия кислорода. КТК":    { "equip": ["КТК № 2", "КТК № 3", "КТК № 4", "КТК № 5", "КТК № 6", "КТК № 7", "КТК № 8", "КТК № 9", "КТК № 10", "КТК № 11", "КТК № 12"]},
+                        "Компрессия кислорода. ТГ" :    { "equip": ["ТГ № 2", "ТГ № 4", "ТГ № 5", "ТГ № 6", "ТГ № 7", "ТГ № 8", "ТГ № 9", "ТГ № 10", "ТГ № 11", "ТГ № 12", "ТГ № 13", "ТГ № 14", "ТГ № 15", "ТГ № 17"]},
+                        "Сжатый воздух":	            { "equip": ["К-1500 № 10 (ЦРВ-1)", "К-1500 № 12 (ЦРВ-1)", "К-1500 № 13 (ЦРВ-1)", "К-500 № 7 (ЦКС-1)", "К-500 № 8 (ЦКС-1)", "К-500 № 11 (ЦКС-1)", "К-500 № 12 (ЦКС-1)", "К-525 №1 (КВУ)", "К-525 № 2 (КВУ)", "К-500 № 1 (ЦКС-2)", "К-500 № 2 (ЦКС-2)"]},
+                        "Азотоснабжение" :	            { "equip": ["КТК № 1", "АТК № 1", "АТК № 2", "К-500 № 5 (СКА)", "К-500 № 6 (СКА)", "К-500 № 7 (СКА)"]}
+                    };
+
+            let area = Object.keys(dataObj);
+            take_select(area, slc1);
+            _1select();
+
+            function _1select() {
+                slc2.innerHTML = "";
+                let equip = (dataObj[slc1.value]["equip"]);
+                take_select(equip, slc2);
+            }
+
+            function take_select(arr, s) {
+                arr.forEach(o => {
+                let opt = document.createElement("option");
+                opt.value = o;
+                opt.innerHTML = o;
+                s.add(opt);
+                });
+            }
+        </script>
+
+
+        <input type="submit" value="Выбрать">
+    </form>
+</div>
+
+
+
+
+</body>

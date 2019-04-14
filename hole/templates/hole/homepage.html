@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>О2 Главная страница</title>
+    {% load staticfiles %}
+    <link rel="icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <style>
+        body {
+			color: #404040;
+			background: #DDDDDD;}
+
+        hr{
+            height: 2px;
+            width: 300px;}
+
+		table{
+			border-collapse: collapse;		}
+
+		td{
+            font-weight: bolder;
+			font-size: 14px;
+			font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+			padding: 1px;
+			text-align: center;			}
+
+		tr.line{
+			alignment: center;}
+
+		td.space{
+			background: #DDDDDD;}
+
+		td.station{
+			alignment: center;
+			border: 1px solid #737373;
+			background: #EDEDED;
+			padding: 10px;
+			font-weight: normal;		        }
+
+		td.inner_compressor{
+			width: 40px;
+			height: 60px;
+			border:	1px solid #737373;		}
+
+		td.inner_block{
+			width: 100px;
+			height: 60px;
+			border:	1px solid #737373;	}
+
+        td.last_reset{
+            font-weight: 100;
+            text-align: left;
+            vertical-align: top;
+            font-size: small;
+        }
+
+    </style>
+</head>
+
+<body>
+{% include "hole/wrapper.html" %}
+
+
+<div class="container">
+	<table>
+		<tr class="line">
+			<td class="station">ЦРВ-1
+				<table>
+					<tr>
+                        {% for tk in crv_1 %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+					</tr>
+				</table>
+			</td>
+			<td class = "space" style = "width: 240px"> </td>
+			<td class = "station">ЦКС-1
+				<table>
+					<tr>
+                        {% for tk in cks_1 %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+					</tr>
+				</table>
+			</td>
+			<td class = "space" style = "width: 440px"> </td>
+			<td class = "station">КВУ
+				<table>
+					<tr>
+                        {% for tk in kvu %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr style = "height: 40px"> </tr>
+		<tr>
+			<td class="station">ЦРВ
+				<table>
+					<tr>
+                        {% for tk in vru %}
+                            <td class="inner_block" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr style = "height: 5px"> </tr>
+		<tr>
+			<td class="station">ТК ЦК-1
+				<table>
+					<tr>
+                        {% for tk in tk_ck_1 %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+					</tr>
+				</table>
+			</td>
+			<td class = "station">ТК ЦК-2
+				<table>
+					<tr>
+                        {% for tk in tk_ck_2 %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+                    </tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr style = "height: 5px"> </tr>
+		<tr>
+			<td class="station">КТК
+				<table>
+					<tr>
+                        {% for tk in ktk %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+                    </tr>
+				</table>
+			</td>
+			<td class = "space" style = "width: 210px"> </td>
+			<td class = "station">КТК-1
+				<table>
+					<tr>
+                        <td class="inner_compressor" style="background: {{ ktk1.get_last_background }}; color: {{ ktk1.get_last_color }}" title="{{ ktk1.full_title }}">{{ ktk1.station_number }}</td>
+					</tr>
+				</table>
+			</td>
+			<td class = "space" style = "width: 10px"> </td>
+			<td class = "station">АТК
+				<table>
+					<tr>
+                        {% for tk in atk %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr style = "height: 5px"> </tr>
+		<tr>
+			<td class="station">ТГ
+				<table>
+					<tr>
+                        {% for tk in tg %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+					</tr>
+				</table>
+			</td>
+			<td class = "space" style = "width: 280px"> </td>
+			<td class = "station">СКА
+				<table>
+					<tr>
+                        {% for tk in ska %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+                    </tr>
+				</table>
+			</td>
+			<td class = "space" style = "width: 10px"> </td>
+			<td class = "station">ЦКС-2
+				<table>
+					<tr>
+						{% for tk in cks_2 %}
+                            <td class="inner_compressor" style="background: {{ tk.get_last_background }}; color: {{ tk.get_last_color }}" title="{{ tk.full_title }}">{{ tk.station_number }}</td>
+                        {% endfor %}
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+    <hr style="width: auto">
+</div>
+
+
+<div class="container">
+    <table>
+        <tr>
+            <td rowspan=3 class="last_reset">Последнее  переключение:</td>
+            <td class="last_reset">{{ reset.last.data }} в {{ reset.last.time }};</td>
+        </tr>
+            <td class="last_reset">{{ reset.last.equip_short_name }}, {{ reset.last.get_area }}; </td>
+        </tr>
+            <td class="last_reset">{{ reset.last.new_status }}.</td>
+{#        </tr>#}
+    </table>
+</div>
+<br>
+
+</body>
+</html>

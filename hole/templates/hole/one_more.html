@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <title>O2 test</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}" type="text/css">
+    <script type="text/javascript"> </script>
+{#    <script src="{% static 'js/bootstrap.js' %}"></script>#}
+
+    <script src="{% static 'js/jQuery.js' %}"></script>
+    <script src="{% static 'js/TweenMax.min.js' %}"></script>
+    <script src="{% static 'js/carousel.js' %}"></script>
+
+    <link rel="icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+
+    <style>
+        body{
+            background-color: #DDDDDD;
+            background-image: url("/static/image/back.png");
+            background-position: 50% 200px;
+            background-repeat: no-repeat;}
+    </style>
+
+
+</head>
+
+<body>
+
+{% include "hole/wrapper_faq.html" %}
+{% block content %}
+{% endblock %}
+
+<div id="container">
+	<div id="contentContainer" class="trans3d">
+	    <section id="carouselContainer" class="trans3d">
+            <figure id="item1" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/1.jpg' %}"></div></figure>
+            <figure id="item2" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/2.jpg' %}"></div></figure>
+            <figure id="item3" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/3.jpg' %}"></div></figure>
+            <figure id="item4" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/4.jpg' %}"></div></figure>
+            <figure id="item5" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/5.jpg' %}"></div></figure>
+            <figure id="item6" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/6.jpg' %}"></div></figure>
+            <figure id="item7" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/7.jpg' %}"></div></figure>
+            <figure id="item8" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/8.jpg' %}"></div></figure>
+            <figure id="item9" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/9.jpg' %}"></div></figure>
+{#            <figure id="item10" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/slide10.jpg' %}"></div></figure>#}
+{#            <figure id="item11" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/slide11.jpg' %}"></div></figure>#}
+{#            <figure id="item12" class="carouselItem trans3d"><div class="carouselItemInner trans3d"><img src="{% static 'carousel/slide12.jpg' %}"></div></figure>#}
+	    </section>
+	</div>
+</div>
+
+<p align="center">Приятного просмотра</p>
+
+</body>
+</html>
+

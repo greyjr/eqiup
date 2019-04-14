@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>О2 показатели работы</title>
+    {% load staticfiles %}
+    <link rel="icon" type="image/x-icon" href="{% static 'image/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <style>
+        body
+            {color: #404040;
+			background: #DDDDDD;}
+        hr
+            {height: 2px;
+            width: 300px;}
+        td  {border: #002752 solid 1px;
+            font-size: 12px;
+            padding-left: 8px;
+            padding-right: 8px;}
+        th {
+            font-weight: normal;
+        }
+    </style>
+</head>
+
+<body>
+{% include "hole/wrapper.html" %}
+
+<div class="row justify-content-lg-center">
+    <div class="col col-md-1">
+      {{ unit.short_name }}
+    </div>
+    <div class="col-md-auto" style="height:700px; overflow : scroll;">
+        <table align="center">
+            <tr align="center">
+                <th>Дата</th>
+                <th>Время</th>
+                <th>статус</th>
+                <th>Длительность</th>
+            </tr>
+            {% for i in records %}
+                <tr title="{{ i.comment }}">
+                    <td>{{ i.datetime.date }}</td>
+                    <td>{{ i.datetime.time }}</td>
+                    <td>{{ i.status }}</td>
+                    <td align="right">{{ i.duration }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{#<div style="height:700px; overflow : scroll;">#}
+{##}
+{#    <table align="center">#}
+{#        <tr align="center">#}
+{#            <th>Дата</th>#}
+{#            <th>Время</th>#}
+{#            <th>статус</th>#}
+{#            <th>Длительность</th>#}
+{#        </tr>#}
+{#        {% for i in records %}#}
+{#            <tr title="{{ i.comment }}">#}
+{#                <td>{{ i.datetime.date }}</td>#}
+{#                <td>{{ i.datetime.time }}</td>#}
+{#                <td>{{ i.status }}</td>#}
+{#                <td align="right">{{ i.duration }}</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#    </table>#}
+{#</div>#}
+
+</body>
+</html>
