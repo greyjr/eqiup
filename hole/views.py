@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from hole.models import Reset, Ie, Status, Equip, Area
-from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
+# from django.contrib.auth.models import User
 from datetime import datetime
 from operator import itemgetter
+import xlwt
 
 
 def index(request):
@@ -199,3 +201,67 @@ def delete(request, idi):
         return render(request, "hole/reset_review.html", context={'all_resets': res})
     except Reset.DoesNotExist:
         return HttpResponseNotFound("<h2>Переключение not found</h2>")
+
+
+def export_unit(request, idi):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="equip.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Users')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['оборудование', 'дата', 'время', 'новый статус', 'комментарий']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    filtered_units = Reset.objects.filter(equip_short_name_id=idi)
+    rows = filtered_units.values_list('equip_short_name__short_name', 'data', 'time', 'new_status__status_name', 'comment')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response
+
+
+def export_all(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="equip.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Users')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['equip_short_name', 'data', 'time', 'new_status', 'comment']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = Reset.objects.all().values_list('equip_short_name__short_name', 'data', 'time', 'new_status__status_name', 'comment')
+    # rows = User.objects.all().values_list('username', 'first_name', 'last_name', 'email')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+    return response

@@ -20,17 +20,49 @@
         th {
             font-weight: normal;
         }
+        td.left{
+            border: none;
+            font-size: 13px;
+
+        }
     </style>
 </head>
 
 <body>
 {% include "hole/wrapper.html" %}
 
-<div class="row justify-content-lg-center">
-    <div class="col col-md-1">
-      {{ unit.short_name }}
+<div class="row">
+    <div class="col col-3" align="center">
+        <table>
+            <tr>
+                <td class="left" colspan="2" style="font-size: 16px">
+                    {{ unit.short_name }}
+                </td>
+            </tr>
+            <tr>
+                <td class="left" colspan="2">
+                    ____________________________________
+                </td>
+            </tr>
+            <tr>
+                <td class="left">
+                    Экспорт в EXCEL {{ unit.short_name }}
+                </td>
+                <td class="left">
+                    <a href="/export_unit/{{ unit.id }}">click</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="left">
+                    Экспорт в EXCEL всей базы
+                </td>
+                <td class="left">
+                    <a href="/export_all">click</a>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="col-md-auto" style="height:700px; overflow : scroll;">
+    <div class="col col-8" style="height:700px; overflow : scroll;">
         <table align="center">
             <tr align="center">
                 <th>Дата</th>
@@ -49,26 +81,6 @@
         </table>
     </div>
 </div>
-
-{#<div style="height:700px; overflow : scroll;">#}
-{##}
-{#    <table align="center">#}
-{#        <tr align="center">#}
-{#            <th>Дата</th>#}
-{#            <th>Время</th>#}
-{#            <th>статус</th>#}
-{#            <th>Длительность</th>#}
-{#        </tr>#}
-{#        {% for i in records %}#}
-{#            <tr title="{{ i.comment }}">#}
-{#                <td>{{ i.datetime.date }}</td>#}
-{#                <td>{{ i.datetime.time }}</td>#}
-{#                <td>{{ i.status }}</td>#}
-{#                <td align="right">{{ i.duration }}</td>#}
-{#            </tr>#}
-{#        {% endfor %}#}
-{#    </table>#}
-{#</div>#}
 
 </body>
 </html>

@@ -18,6 +18,8 @@ urlpatterns = [
     path('edit/<int:idi>/', views.edit, name='edit'),
     path('create/', views.create, name='create'),
     path('rewrite/', views.rewrite, name='rewrite'),
-    path('analysis_unit/', views.analysis_unit, name='analysis_unit')
+    path('analysis_unit/', views.analysis_unit, name='analysis_unit'),
+    path('export_unit/<int:idi>', views.export_unit, name='export_unit'),
+    path('export_all', views.export_all, name='export_all'),
 
 ]
