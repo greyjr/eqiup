@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from hole.models import Reset, Ie, Status, Equip, Area
 from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
-# from django.contrib.auth.models import User
 from datetime import datetime
 from operator import itemgetter
 import xlwt
@@ -75,18 +74,18 @@ def resume(request):
                            "time": time})
 
 
-def get_month_biography(request):
-    d = []
-    unit_object_list = Reset.objects.filter(equip_short_name_id=13)
-    for i in range(1, 30):
-        pass
-    return d
-
-
-def get_day_biography(unit_object_list, day):
-
-    status = 'В резерве'
-    return status
+# def get_month_biography(request):
+#     d = []
+#     unit_object_list = Reset.objects.filter(equip_short_name_id=13)
+#     for i in range(1, 30):
+#         pass
+#     return d
+#
+#
+# def get_day_biography(unit_object_list, day):
+#
+#     status = 'В резерве'
+#     return status
 
 
 def analysis(request):
@@ -102,13 +101,13 @@ def analysis_unit(request):
         unit = Equip.objects.get(short_name=request.POST.get('short_name'))
         filtered_units = Reset.objects.filter(equip_short_name_id=unit.id)
         if len(filtered_units) == 0:
-            all_records = [{'datetime': 'нет данных', 'status': 'нет даных',
-                            'duration': 'нет даных', 'comment': "No comments"}]
+            all_records = [{'datetime': 'нет данных', 'status': 'нет даных', 'duration': 'нет даных',
+                            'comment': "No comments", 'remark': ""}]
         elif len(filtered_units) == 1:
             single = filtered_units.first()
             all_records = [{'datetime': datetime.combine(single.data, single.time),
                             'status': single.new_status, 'duration': 'В процессе',
-                            'comment': single.comment}]
+                            'comment': single.comment, 'remark': ""}]
         else:
             statuses = {1: 'пуск', 2: 'в работе', 3: 'резерв', 4: 'аварийная остановка',
                         5: 'ремонт', 6: 'на сбросе', 7: 'обкатка', 8: 'выход на режим',
@@ -117,7 +116,7 @@ def analysis_unit(request):
                 st = statuses.get(i.new_status_id)
                 all_records.append({'datetime': datetime.combine(i.data, i.time),
                                     'status': st, 'duration': "В процессе",
-                                    'comment': i.comment})
+                                    'comment': i.comment, 'remark': i.is_expensive_start})
             all_records = sorted(all_records, key=itemgetter('datetime'), reverse=True)
             previous = all_records[0]
             for j in all_records[1:]:
@@ -162,13 +161,20 @@ def reset_new(request):
 
 def create(request):
     if request.method == "POST":
-        reset = Reset()
-        reset.equip_short_name = Equip.objects.get(short_name=request.POST.get("short_name"))
-        reset.data = request.POST.get("data")
-        reset.time = request.POST.get("time")
-        reset.new_status = Status.objects.get(status_name=request.POST.get("new_status"))
-        reset.comment = request.POST.get("comment")
-        reset.save()
+        try:
+            reset = Reset()
+            reset.equip_short_name = Equip.objects.get(short_name=request.POST.get("short_name"))
+            reset.data = request.POST.get("data")
+            if reset.data == "":
+                reset.data = datetime.today().date()
+            reset.time = request.POST.get("time")
+            if reset.time == "":
+                reset.time = datetime.today().time()
+            reset.new_status = Status.objects.get(status_name=request.POST.get("new_status"))
+            reset.comment = request.POST.get("comment")
+            reset.save()
+        except Reset.DoesNotExist:
+            return HttpResponseNotFound("<h2>Ошибка ввода</h2>")
     return HttpResponseRedirect("/reset_review")
 
 
@@ -189,8 +195,12 @@ def edit(request, idi):
     area = Area.objects.all()
     equip = Equip.objects.all()
     stat = Status.objects.all()
-    res = Reset.objects.get(id=idi)
-    return render(request, "hole/reset_edit.html", context={"reset": res, "equip": equip, "status": stat, "area": area})
+    try:
+        res = Reset.objects.get(id=idi)
+        return render(request, "hole/reset_edit.html", context={"reset": res, "equip": equip,
+                                                                "status": stat, "area": area})
+    except Reset.DoesNotExist:
+        return HttpResponseNotFound("<h2>Переключение not found</h2>")
 
 
 def delete(request, idi):
@@ -225,7 +235,8 @@ def export_unit(request, idi):
     font_style = xlwt.XFStyle()
 
     filtered_units = Reset.objects.filter(equip_short_name_id=idi)
-    rows = filtered_units.values_list('equip_short_name__short_name', 'data', 'time', 'new_status__status_name', 'comment')
+    rows = filtered_units.values_list('equip_short_name__short_name', 'data', 'time',
+                                      'new_status__status_name', 'comment')
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
@@ -256,8 +267,8 @@ def export_all(request):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-    rows = Reset.objects.all().values_list('equip_short_name__short_name', 'data', 'time', 'new_status__status_name', 'comment')
-    # rows = User.objects.all().values_list('username', 'first_name', 'last_name', 'email')
+    rows = Reset.objects.all().values_list('equip_short_name__short_name', 'data',
+                                           'time', 'new_status__status_name', 'comment')
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):

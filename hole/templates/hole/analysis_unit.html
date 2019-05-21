@@ -69,6 +69,7 @@
                 <th>Время</th>
                 <th>статус</th>
                 <th>Длительность</th>
+                <th>Примечание</th>
             </tr>
             {% for i in records %}
                 <tr title="{{ i.comment }}">
@@ -76,6 +77,7 @@
                     <td>{{ i.datetime.time }}</td>
                     <td>{{ i.status }}</td>
                     <td align="right">{{ i.duration }}</td>
+                    <td>{{ i.remark }}</td>
                 </tr>
             {% endfor %}
         </table>

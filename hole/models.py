@@ -36,8 +36,17 @@ class Equip(models.Model):
     def full_title(self):
         return self.type_equip+' № '+str(self.station_number)
 
-    def get_last_status(self):
-        return Reset.objects.filter(equip_short_name_id=self.id).latest('data', 'time').new_status_id
+    def last_status(self):
+        status = Reset.objects.filter(equip_short_name_id=self.id).latest('data', 'time').new_status
+        return status
+
+    def last_date(self):
+        data = Reset.objects.filter(equip_short_name_id=self.id).latest('data', 'time').data
+        return data
+
+    def last_time(self):
+        time = Reset.objects.filter(equip_short_name_id=self.id).latest('data', 'time').time
+        return time
 
     def get_last_background(self):
         status = Reset.objects.filter(equip_short_name_id=self.id).latest('data', 'time').new_status_id
@@ -77,9 +86,6 @@ class Reset(models.Model):
     time = models.TimeField()
     comment = models.CharField(max_length=2048)
 
-    # def get_last(self):
-    #     return Reset.objects.latest('data', 'time')
-
     def get_area(self):
         equip_name = Equip.objects.get(short_name=self.equip_short_name)
         return Area.objects.get(name_select=equip_name.area_id)
@@ -116,12 +122,3 @@ class Reset(models.Model):
 
     def get_record(self):
         return [str(self.equip_short_name), self.data, self.time, str(self.new_status)]
-
-    # def get_last_reset_status(self, idi):
-    #     last = Reset.objects.filter(equip_short_name_id=idi).latest('data', 'time')
-    #     return last.status
-    #
-    # def get_last_reset_background(self):
-    #     cell_color = 4210752
-    #     cell_background = 14540253
-    #     return

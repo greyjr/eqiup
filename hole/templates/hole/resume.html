@@ -30,20 +30,23 @@
 <body>
 {% include "hole/wrapper.html" %}
 
-<div class="container">
-    <h1>обзор по времени</h1>
-    <table>
-    {% for row in tk_ck_1 %}
-        <tr>
-        {% for cell in time %}
-            <td style="background: #9BC2E6; border-bottom: #1d2124" title="{{ cell }} {{ row }}"></td>
+<div class="container" align="center">
+    <h4>обзор по времени</h4>
+{#    <table>#}
+{#    {% for row in tk_ck_1 %}#}
+{#        <tr>#}
+{#        {% for cell in time %}#}
+{#            <td style="background: #9BC2E6; border-bottom: #1d2124" title="{{ cell }} {{ row }}"></td>#}
+{##}
+{##}
+{##}
+{#        {% endfor %}#}
+{#        </tr>#}
+{#    {% endfor %}#}
+{#    </table>#}
+     <img src="../../static/image/obzor_resume.png" >
 
 
-
-        {% endfor %}
-        </tr>
-    {% endfor %}
-    </table>
 </div>
 </body>
 </html>
